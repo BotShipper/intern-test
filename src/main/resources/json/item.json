@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "name": "Xu"
+  },
+  {
+    "id": 2,
+    "name": "Kim cương"
+  },
+  {
+    "id": 3,
+    "name": "bim bim",
+    "categoryId": 2,
+    "attributeId": 1
+  },
+  {
+    "id": 4,
+    "name": "Coca",
+    "categoryId": 1,
+    "attributeId": 2
+  },
+  {
+    "id": 5,
+    "name": "Pepsi",
+    "categoryId": 1,
+    "attributeId": 2
+  },
+  {
+    "id": 6,
+    "name": "Bóng",
+    "categoryId": 3,
+    "attributeId": 3
+  },
+  {
+    "id": 7,
+    "name": "Súng",
+    "categoryId": 3,
+    "attributeId": 2
+  }
+]

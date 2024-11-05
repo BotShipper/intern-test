@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "itemId": 2,
+    "priceType": 1,
+    "price": 5000,
+    "maxBuy": 9999
+
+  },
+  {
+    "id": 2,
+    "itemId": 3,
+    "priceType": 1,
+    "price": 2000,
+    "maxBuy": 50
+  },
+  {
+    "id": 3,
+    "itemId": 5,
+    "priceType": 2,
+    "price": 20,
+    "maxBuy": 10
+  }
+]
