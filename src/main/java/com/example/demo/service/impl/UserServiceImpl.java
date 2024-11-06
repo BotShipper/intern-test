@@ -2,13 +2,9 @@ package com.example.demo.service.impl;
 
 import com.example.demo.Util.SequenceGeneratorService;
 import com.example.demo.dto.UserDto;
-import com.example.demo.model.Bag;
-import com.example.demo.model.Item;
-import com.example.demo.model.Money;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.BagService;
-import com.example.demo.service.MoneyService;
 import com.example.demo.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +12,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,9 +26,7 @@ public class UserServiceImpl implements UserService {
     BagService bagService;
 
     @Override
-    public Boolean createUser(UserDto userDto) {
-
-        if (userDto == null) return false;
+    public void createUser(UserDto userDto) {
 
         User user = new User();
         user.setId(sequenceGeneratorService.generateSequence(User.SEQUENCE_NAME));
@@ -47,40 +36,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         bagService.createBag(user.getId());
-
-        return true;
     }
 
     @Override
-    public List<UserDto> getAllUserDto() {
-        return null;
-    }
+    public UserDto getUserById(long id) {
+        log.info("Get User By Id {}.....", id);
 
-    @Override
-    public UserDto getUserDtoById(long id) {
-        log.info("Get User DTO By Id {}.....", id);
-
-        User user = getUserById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
 
         return UserDto.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .build();
-    }
-
-    @Override
-    public User getUserById(long id) {
-        log.info("Get User By Id {}.....", id);
-        return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
-    }
-
-    @Override
-    public Boolean updateUser(User user) {
-        log.info("Update {}", user);
-
-        userRepository.save(user);
-
-        return true;
     }
 }

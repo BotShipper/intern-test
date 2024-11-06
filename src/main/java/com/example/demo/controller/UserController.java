@@ -19,19 +19,17 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {
         try {
-            if(userService.createUser(userDto))
-                return ResponseEntity.ok().body("Create User Success");
-            else
-                return ResponseEntity.badRequest().body("Create User Fail");
+            userService.createUser(userDto);
+            return ResponseEntity.ok().body("Create User Success");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> createUser(@PathVariable long id) {
+    public ResponseEntity<?> getUserById(@PathVariable long id) {
         try {
-            return ResponseEntity.ok().body(userService.getUserDtoById(id));
+            return ResponseEntity.ok().body(userService.getUserById(id));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }

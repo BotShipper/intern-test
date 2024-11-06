@@ -4,9 +4,9 @@ import com.example.demo.dto.BagDto;
 
 public interface BagService {
 
-    Boolean createBag(long userId);
+    void createBag(long userId);
 
     BagDto getBagById(long id);
 
-    Boolean updateBag(long id,BagDto bag);
+    void updateBag(long id, BagDto bag);
 }

@@ -24,6 +24,5 @@ public class Bag {
     @Id
     Long id;
     Map<Long, Long> items;
-    Map<Long, Long> moneys;
 
 }

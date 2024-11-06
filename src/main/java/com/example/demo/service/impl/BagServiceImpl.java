@@ -2,10 +2,8 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dto.BagDto;
 import com.example.demo.model.Bag;
-import com.example.demo.model.Money;
 import com.example.demo.repository.BagRepository;
 import com.example.demo.service.BagService;
-import com.example.demo.service.MoneyService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,9 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,24 +23,16 @@ public class BagServiceImpl implements BagService {
 
     BagRepository bagRepository;
 
-    MoneyService moneyService;
-
     @Override
-    public Boolean createBag(long userId) {
+    public void createBag(long userId) {
 
-        if (userId <= 0) return false;
+        Map<Long, Long> moneys = new HashMap<>();
+        moneys.put(1L, 10000L); // Xu
+        moneys.put(2L, 10000L);  // Kim cương
 
-
-        List<Money> moneys = moneyService.getAllMoneys();
-        Map<Long, Long> setMoneys = moneys.stream().collect(
-                Collectors.toMap(Money::getId, money -> 20000L)
-        );
-
-        Bag bag = new Bag(userId, null, setMoneys);
+        Bag bag = new Bag(userId, moneys);
         bagRepository.save(bag);
         log.info("Create {}", bag);
-
-        return true;
     }
 
     @Override
@@ -55,20 +44,18 @@ public class BagServiceImpl implements BagService {
 
         return BagDto.builder()
                 .items(bag.getItems())
-                .moneys(bag.getMoneys())
                 .build();
     }
 
     @Override
-    public Boolean updateBag(long id, BagDto bag) {
+    public void updateBag(long id, BagDto bagDto) {
 
-        Bag bag1 = new Bag();
-        bag1.setId(id);
-        bag1.setItems(bag.getItems());
-        bag1.setMoneys(bag.getMoneys());
-        log.info("Update {}", bag1);
-        bagRepository.save(bag1);
+        Bag bag = bagRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Bag not found with id: " + id));
+        bag.setItems(bagDto.getItems());
 
-        return true;
+        log.info("Update {}", bag);
+        bagRepository.save(bag);
+
     }
 }

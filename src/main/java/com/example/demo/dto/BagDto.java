@@ -17,6 +17,5 @@ import java.util.Map;
 public class BagDto {
 
     Map<Long, Long> items;
-    Map<Long, Long> moneys;
 
 }

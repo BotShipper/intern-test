@@ -10,8 +10,6 @@ public interface ShopItemService {
 
     ShopItemDto getShopItemById(long id);
 
-    ShopItemDto getShopItemByItemId(long itemId);
-
     void updateShop(long id, ShopItemDto shopItemDto);
 
     String UserBuyItem(long userId, Map<Long, Long> items);
